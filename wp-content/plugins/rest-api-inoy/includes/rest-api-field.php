@@ -180,9 +180,9 @@ function register_page_featured_image_fields() {
 }
 
 //Register Testimonial Featured Image
-add_action( 'rest_api_init', 'register_testimonial_featured_image_fields' );
-function register_testimonial_featured_image_fields() {
-    register_rest_field( 'testimonial',
+add_action( 'rest_api_init', 'register_homepage_featured_image_fields' );
+function register_homepage_featured_image_fields() {
+    register_rest_field( 'homepage',
         'featured_image',
         [
             'get_callback'    => function($object, $field_name, $request){
@@ -208,9 +208,9 @@ function register_testimonial_featured_image_fields() {
 }
 
 //Register Testimonial Featured Image
-add_action( 'rest_api_init', 'register_project_featured_image_fields' );
-function register_project_featured_image_fields() {
-    register_rest_field( 'projects',
+add_action( 'rest_api_init', 'register_client_featured_image_fields' );
+function register_client_featured_image_fields() {
+    register_rest_field( 'client',
         'featured_image',
         [
             'get_callback'    => function($object, $field_name, $request){

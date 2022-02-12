@@ -1,38 +1,38 @@
 version: '3'
 
 services:
-  db:
+  db-weberesin:
     platform: linux/x86_64
     image: mariadb:10.4.18
-    container_name: wordpress_project_db
+    container_name: wordpress_weberesin_db
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    #restart: always
     networks: 
-      - wordpress-network
+      - weberesin-network
     tty: true
     ports:
-      - "3307:3306"
+      - "3308:3306"
     environment:
       MYSQL_ROOT_PASSWORD: somewordpress
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
 
-  wordpress:
+  wordpress_weberesin:
     depends_on:
-      - db
+      - db-weberesin
     image: wordpress:5.8.1-php7.3-apache
-    container_name: wordpress_project_server
+    container_name: wordpress_weberesin_server
     build: 
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:80"
-    restart: always
+      - "8001:80"
+    # restart: always
     tty: true
     networks:
-      - wordpress-network
+      - weberesin-network
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
@@ -42,8 +42,8 @@ services:
       - ./wp-content:/var/www/html/wp-content
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 networks:
-  wordpress-network:
-    name: wordpress-network
+  weberesin-network:
+    name: weberesin-network
     driver: bridge
 volumes:
   db_data:
