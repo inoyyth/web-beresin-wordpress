@@ -141,6 +141,21 @@ function register_post_featured_image_fields() {
                         $size = 'original';
                     }
                     $img = wp_get_attachment_image_src($object['featured_media'], $size);
+                    
+                    //check is image from cloudinary
+                    global $wpdb;
+                    $table = $wpdb->prefix . 'postmeta';
+                    $meta_key = '_cloudinary';
+                    $post_id = $object['featured_media'];
+                    $cl_meta_value = $wpdb->get_var( "SELECT meta_value FROM $table WHERE post_id = $post_id AND meta_key = '$meta_key'" );
+                    if(!empty($cl_meta_value)){
+                        $data = unserialize($cl_meta_value);
+                        if(isset($data['_cloudinary_url']) && !empty($data['_cloudinary_url'])){
+                            $img[0] = $data['_cloudinary_url'];
+                        }
+                        
+                    }
+
                     return [
                         'url' => $img[0],
                     ];
@@ -169,8 +184,23 @@ function register_page_featured_image_fields() {
                         $size = 'original';
                     }
                     $img = wp_get_attachment_image_src($object['featured_media'], $size);
+                    
+                    //check is image from cloudinary
+                    global $wpdb;
+                    $table = $wpdb->prefix . 'postmeta';
+                    $meta_key = '_cloudinary';
+                    $post_id = $object['featured_media'];
+                    $cl_meta_value = $wpdb->get_var( "SELECT meta_value FROM $table WHERE post_id = $post_id AND meta_key = '$meta_key'" );
+                    if(!empty($cl_meta_value)){
+                        $data = unserialize($cl_meta_value);
+                        if(isset($data['_cloudinary_url']) && !empty($data['_cloudinary_url'])){
+                            $img[0] = $data['_cloudinary_url'];
+                        }
+                        
+                    }
+
                     return [
-                        'url' => $img[0]
+                        'url' => $img[0],
                     ];
                 }
                 return false;
@@ -197,8 +227,23 @@ function register_homepage_featured_image_fields() {
                         $size = 'original';
                     }
                     $img = wp_get_attachment_image_src($object['featured_media'], $size);
+                    
+                    //check is image from cloudinary
+                    global $wpdb;
+                    $table = $wpdb->prefix . 'postmeta';
+                    $meta_key = '_cloudinary';
+                    $post_id = $object['featured_media'];
+                    $cl_meta_value = $wpdb->get_var( "SELECT meta_value FROM $table WHERE post_id = $post_id AND meta_key = '$meta_key'" );
+                    if(!empty($cl_meta_value)){
+                        $data = unserialize($cl_meta_value);
+                        if(isset($data['_cloudinary_url']) && !empty($data['_cloudinary_url'])){
+                            $img[0] = $data['_cloudinary_url'];
+                        }
+                        
+                    }
+
                     return [
-                        'url' => $img[0]
+                        'url' => $img[0],
                     ];
                 }
                 return false;
@@ -225,8 +270,23 @@ function register_client_featured_image_fields() {
                         $size = 'original';
                     }
                     $img = wp_get_attachment_image_src($object['featured_media'], $size);
+                    
+                    //check is image from cloudinary
+                    global $wpdb;
+                    $table = $wpdb->prefix . 'postmeta';
+                    $meta_key = '_cloudinary';
+                    $post_id = $object['featured_media'];
+                    $cl_meta_value = $wpdb->get_var( "SELECT meta_value FROM $table WHERE post_id = $post_id AND meta_key = '$meta_key'" );
+                    if(!empty($cl_meta_value)){
+                        $data = unserialize($cl_meta_value);
+                        if(isset($data['_cloudinary_url']) && !empty($data['_cloudinary_url'])){
+                            $img[0] = $data['_cloudinary_url'];
+                        }
+                        
+                    }
+
                     return [
-                        'url' => $img[0]
+                        'url' => $img[0],
                     ];
                 }
                 return false;
