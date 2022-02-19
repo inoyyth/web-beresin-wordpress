@@ -294,6 +294,28 @@ function register_client_featured_image_fields() {
         ]
     );
 }
+
+$post_types = array( 'post', 'page', 'homepage', 'client' );
+foreach( $post_types as $post_type ) {
+    add_filter( 'rest_' . $post_type . '_query', 'rest_filter_by_custom_taxonomy', 10, 3 );
+}
+function rest_filter_by_custom_taxonomy( $args, $request ) {
+
+    if ( isset($request['category_slug']) )
+    {
+        $category_slug = sanitize_text_field($request['category_slug']);
+        $args['tax_query'] = [
+            [
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => $category_slug,
+            ]
+        ];
+    }
+    
+    return $args;
+    
+}
 // // Enable the option show in rest
 // add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
 
